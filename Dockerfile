@@ -29,6 +29,7 @@ RUN apt install -y php8.0-mbstring
 RUN apt install -y php8.0-mysql
 RUN apt install -y php8.0-xsl
 RUN apt install -y php8.0-zip
+RUn apt install -y php8.0-pdo-mysql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php8.0 -- --install-dir=/usr/local/bin --filename=composer

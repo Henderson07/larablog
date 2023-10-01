@@ -20,7 +20,7 @@ services:
       restart: "always"
       environment:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
+          MYSQL_DATABASE: homestead
       ports:
           - "3308:3306"
   phpmyadmin:
