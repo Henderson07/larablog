@@ -2,7 +2,7 @@
  C:\Windows\System32\drivers\etc -- a pasta na vai mostrar nenhum arquivo  vc precisa selecionar canto inferior a opção TODOS ARQUIVOS
  Abra o arquivo hosts e nele cole as linhas abaixo
  127.0.0.1 phpmyadmin.local.br -- coloque essa linha
- 127.0.0.1 nexusweb.local.br -- coloque essa linha
+ 127.0.0.1 blog.local.br -- coloque essa linha
  
 1 - Criar os containers
  docker-compose build
@@ -13,7 +13,7 @@
  como estamos usando o mysql mais recente eu criei o banco usando utf8mb4_0900_ai_ci
 
 3 - no .env colocar os valores abaixo
- APP_URL=http://nexusweb.local.br:3001
+ APP_URL=http://blog.local.br:3001
  DB_CONNECTION=mysql
  DB_HOST=host.docker.internal
  DB_PORT=3308
@@ -23,7 +23,7 @@
 
 
 4 acessar o container para rodar os comandos abaixo
- docker exec -it nexusweb-serve bash -- acessar o conainer usando bash
+ docker exec -it blog-serve bash -- acessar o container usando bash
  cd /var/www/html -- ir até a pasta do está o projeto
 
 
@@ -42,6 +42,6 @@
  php artisan migrate
 
 
-7 - Quando vc acessar o navegador (nexusweb.local.br:3001) se der erro de escrita no log ai vc roda comando abaixo
+7 - Quando vc acessar o navegador (blog.local.br:3001) se der erro de escrita no log ai vc roda comando abaixo
  cd /var/www/html 
  sudo chown -R www-data:www-data storage/logs
