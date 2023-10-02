@@ -29,24 +29,45 @@ class AuthorController extends Controller
     {
         $user = User::find(auth('web')->id());
         $path = 'backend/dist/img/authors';
-        $file = $request->file('file');
-        $old_picture = $user->getAttribute()['picture'];
-        $file_path = $user . $old_picture;
-        $new_picture_name = 'AIMG' . $user->id . time() . rand(1, 100000) . '.jpg';
 
-        if ($old_picture != null && File::exists(public_path($file_path))) {
-            File::delete(public_path($file_path));
+        if ($request->hasFile('business_logo')) {
+            $file = $request->file('business_logo');
+            $old_picture = $user->picture;
+            $file_path = public_path($path . '/' . $old_picture);
+            $new_picture_name = 'AIMG' . $user->id . time() . rand(1, 100000) . '.jpg';
+
+            if ($old_picture != null && File::exists($file_path)) {
+                File::delete($file_path);
+            }
+
+            $upload = $file->move(public_path($path), $new_picture_name);
+
+            if ($upload) {
+                $user->update([
+                    'picture' => $new_picture_name
+                ]);
+
+                $output = [
+                    'success' => 1,
+                    'msg' => __('Foto atualizada com sucesso')
+                ];
+
+                return redirect()->route('author.profile')->with('status', $output);
+            } else {
+                $output = [
+                    'success' => 0,
+                    'msg' => 'Algo deu errado e a foto não foi atualizada.'
+                ];
+
+                return redirect()->route('author.profile')->with('status', $output);
+            }
         }
-        $upload = $file->move(public_path($path), $new_picture_name);
-        if ($upload) {
-            $user->update([
-                'picture' => $new_picture_name
-            ]);
-            return response()->json(['status' => 1, 'msg' => 'Foto de perfil atualizada com sucesso']);
-        } else {
-            return response()->json([
-                'status' => 0, 'msg' => 'Algo deu errado'
-            ]);
-        }
+
+        $output = [
+            'success' => 0,
+            'msg' => 'Algo deu errado e a foto não foi atualizada.'
+        ];
+
+        return redirect()->route('author.profile')->with('status', $output);
     }
 }

@@ -1,6 +1,42 @@
 @extends('backend.layouts.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Perfil')
 @section('content')
+    <style>
+        /* Estilos para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Estilos para o botão de recorte */
+        #cropButton {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
     @livewire('author-profile-header')
     <hr>
     <div class="row">
@@ -33,33 +69,56 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#changeAuthorPictureFile').ijaboCropTool({
-                preview: '',
-                setRatio: 1,
-                allowedExtensions: ['jpg', 'jpeg', 'png'],
-                buttonsText: ['CROP', 'QUIT'],
-                buttonsColor: ['#30bf7d', '#ee5155', -15],
-                processUrl: '{{ route("author.change-profile-picture") }}',
-                withCSRF: ['_token', '{{ csrf_token() }}'],
-                onSuccess: function(message, element, status) {
-                    alert(message);
-                    console.log(message);
+        // $(document).on('change', 'input#changeAuthorPictureFile', function() {
+        //     console.log('change');
+        //     var fileInput = this;
+        //     var teste = document.getElementById('changeAuthorPictureFile');
 
-                    // Simular uma solicitação POST usando jQuery
-                    // $.post('{{ route('author.change-profile-picture') }}', {
-                    //     _token: '{{ csrf_token() }}'
-                        // Aqui você pode adicionar mais dados, se necessário
-                    // }, function(data) {
-                        // Lida com a resposta da solicitação POST aqui
-                    //     console.log(data);
-                    // });
-                },
-                onError: function(message, element, status) {
-                    alert(message);
-                    console.log('message', message);
-                }
-            });
-        });
+
+        //     // Verifique se um arquivo foi selecionado
+        //     if (teste.files.length > 0) {
+        //         var formData = new FormData();
+        //         formData.append('file', teste.files[0]);
+        //         console.log('this', this, 'tesste', teste, 'form', formData, 'file', teste.files[0])
+
+        //         const url = '/author/change-profile-picture';
+
+        //         $.ajax({
+        //             url: url,
+        //             type: 'POST',
+        //             dataType: 'json',
+        //             contentType: 'application/json', // Define o tipo de conteúdo para JSON
+        //             data: JSON.stringify({
+        //                 file: teste.files[0],
+        //             }),
+        //             headers:{
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //             },
+        //             success: function(data) {
+        //                 console.log('entrei success');
+        //             },
+        //             error: function(error) {
+        //                 console.log('entrei erro', error)
+        //             }
+        //         })
+        //     }
+        // })
+        // $('#changeAuthorPictureFile').ijaboCropTool({
+        //     preview: '',
+        //     setRatio: 1,
+        //     allowedExtensions: ['jpg', 'jpeg', 'png'],
+        //     buttonsText: ['CROP', 'QUIT'],
+        //     buttonsColor: ['#30bf7d', '#ee5155', -15],
+        //     processUrl: '/author/change-profile-picture',
+        //     withCSRF: ['_token', '{{ csrf_token() }}'],
+        //     onSuccess: function(message, element, status) {
+        //         alert(message);
+
+        //     },
+        //     onError: function(message, element, status) {
+        //         alert(message);
+        //         console.log(message,element, status)
+        //     }
+        // });
     </script>
 @endpush

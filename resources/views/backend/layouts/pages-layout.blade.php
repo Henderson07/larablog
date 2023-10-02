@@ -21,6 +21,7 @@
     <link href="./backend/dist/css/tabler-payments.min.css?1684106062" rel="stylesheet" />
     <link href="./backend/dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/dist/libs/ijaboCropTool/ijaboCropTool.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
     <link href="{{ asset('') }}" rel="stylesheet" />
 
     @stack('stylesheet')
@@ -51,6 +52,7 @@
     <script src="./backend/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('backend/dist/libs/ijaboCropTool/ijaboCropTool.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <!-- Tabler Core -->
     <script src="./backend/dist/js/tabler.min.js?1684106062" defer></script>
     @stack('scripts')
