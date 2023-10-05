@@ -9,6 +9,11 @@ use App\Models\User;
 class AuthorLoginForm extends Component
 {
     public $login_id, $password;
+    public $returnUrl;
+    public function mount()
+    {
+        $this->returnUrl = request()->returnUrl;
+    }
 
     public function  LoginHandler()
     {
@@ -42,7 +47,11 @@ class AuthorLoginForm extends Component
                 Auth::guard('web')->logout();
                 return redirect()->route('author.login')->with('fail', 'Sua conta está bloqueada.');
             } else {
-                return redirect()->route('author.home');
+                if ($this->returnUrl != null) {
+                    return redirect()->to($this->returnUrl);
+                } else {
+                    return redirect()->route('author.home');
+                }
             }
         } else {
             session()->flash('fail', 'E-mail/Usuário ou senha incorreto.');

@@ -16,6 +16,7 @@
     <title>@yield('pageTitle')</title>
     <!-- CSS files -->
     <base href="/">
+    <link rel="shortcut icon" href="{{ \App\Models\GeneralSettings::find(1)->blog_favicon }}" type="image/x-icon">
     <link href="./backend/dist/css/tabler.min.css?1684106062" rel="stylesheet"/>
     <link href="./backend/dist/css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
     <link href="./backend/dist/css/tabler-payments.min.css?1684106062" rel="stylesheet"/>

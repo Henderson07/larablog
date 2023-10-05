@@ -122,4 +122,55 @@ class AuthorController extends Controller
             return redirect()->route('author.settings')->with('status', $output);
         }
     }
+
+    public function changeBlogFavicon(Request $request)
+    {
+        $general_settings = GeneralSettings::find(1);
+        $favicon_path = 'backend/dist/img/logo-favicon';
+        $old_favicon = $general_settings->blog_favicon;
+        $file = $request->blog_favicon;
+        // dd($request, $general_settings, $favicon_path, $old_favicon, $file);
+        if ($request->hasFile('blog_favicon')) {
+            // Validação: Verifique se o arquivo é um SVG
+            if ($file->getClientOriginalExtension() === 'svg') {
+                // Gere um nome único para o arquivo
+                $filename = time() . '_' . rand(1, 2000) . '_blog_favicon.ico';
+            } else {
+                $filename = time() . '_' . rand(1, 2000) . '_blog_favicon.ico';
+            }
+
+            if ($old_favicon != null && File::exists(public_path($favicon_path . $old_favicon))) {
+                File::delete(public_path($favicon_path . $old_favicon));
+            }
+
+            $upload = $file->move(public_path($favicon_path), $filename);
+
+            if ($upload) {
+                $general_settings->update([
+                    'blog_favicon' => $filename
+                ]);
+
+                $output = [
+                    'success' => 1,
+                    'msg' => __('Ícone atualizado com sucesso')
+                ];
+
+                return redirect()->route('author.settings')->with('status', $output);
+            } else {
+                $output = [
+                    'success' => 0,
+                    'msg' => __('Algo deu errado')
+                ];
+
+                return redirect()->route('author.settings')->with('status', $output);
+            }
+        } else {
+            $output = [
+                'success' => 0,
+                'msg' => 'O arquivo deve ser um SVG ou JPG.'
+            ];
+
+            return redirect()->route('author.settings')->with('status', $output);
+        }
+    }
 }

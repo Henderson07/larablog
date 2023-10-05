@@ -21,4 +21,7 @@ class GeneralSettings extends Model
     {
         return asset("backend/dist/img/logo-favicon/" . $value);
     }
+    public function getBlogFaviconAttribute($value){
+        return asset('backend/dist/img/logo-favicon/' . $value);
+    }
 }

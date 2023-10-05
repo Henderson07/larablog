@@ -22,11 +22,11 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="#tabs-profile-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1"
-                        role="tab">Profile</a>
+                        role="tab">Logo & ícone</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="#tabs-activity-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1"
-                        role="tab">Activity</a>
+                        role="tab">Mídias sociais</a>
                 </li>
             </ul>
         </div>
@@ -43,29 +43,64 @@
                         <div class="col-md-6">
                             <h4>Alterar logo</h4>
                             <div class="mb-2" style="max-width: 200px;">
-                                <img id="imagemSelecionada" src="{{ \App\Models\GeneralSettings::find(1)->blog_logo }}" alt="Imagem Selecionada" class="img-thumbail">
+                                <img id="imagemSelecionada" src="{{ \App\Models\GeneralSettings::find(1)->blog_logo }}"
+                                    alt="Imagem Selecionada" class="img-thumbnail">
                             </div>
                             @livewire('author-general-change-logo')
                         </div>
                         <div class="col-md-6">
                             <h3>Alterar icone blog</h3>
                             <div class="mb-2" style="max-width: 100px">
-                                <img src="{{ \App\Model\GeneralSettings::find(1)->blog_favicon }}" alt="" class="img-thumbnail">
+                                <img id="selectedFavicon" src="{{ \App\Models\GeneralSettings::find(1)->blog_favicon }}"
+                                    alt="" class="img-thumbnail">
                             </div>
-                            <form action="" id="changeBlogFaviconForm">
+                            <form action="{{ route('author.change-logo-favicon') }}" id="changeBlogFaviconForm"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-2">
-                                    <input type="file" name="blog_favicon" class="form-control">
+                                    <input type="file" name="blog_favicon" id="blog_favicon" class="form-control"">
                                 </div>
-                                <button class="btn btn-primary">Altera icone</button>
+                                <button class="btn btn-primary" type="submit">Altera icone</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="tabs-activity-8" role="tabpanel">
-                    <h4>Activity tab</h4>
-                    <div>Donec ac vitae diam amet vel leo egestas consequat rhoncus in luctus amet, facilisi sit mauris
-                        accumsan nibh habitant senectus</div>
+                    <h4>Adicionar mídias sociais</h4>
+                    <div>
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Facebook</label>
+                                        <input type="text" class="form-control" name="facebook"
+                                            placeholder="Insira a url do facebook">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Instagram</label>
+                                        <input type="text" class="form-control" name="instagram"
+                                            placeholder="Insira a url do instagram">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">youtube</label>
+                                        <input type="text" class="form-control" name="youtube"
+                                            placeholder="Insira a url do youtube">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">linkeIn</label>
+                                        <input type="text" class="form-control" name="linkeIn"
+                                            placeholder="Insira a url do linkeIn">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +109,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const inputFile = document.getElementById('blog_logo');
+        const inputFileFavicon = document.getElementById('blog_favicon');
         const changeBlogLogoForm = document.getElementById('changeBlogLogoForm');
+        const changeBlogFavicon = document.getElementById('changeBlogFaviconForm');
 
         inputFile.addEventListener('change', (event) => {
             const imagemSelecionada = document.getElementById('imagemSelecionada');
@@ -84,7 +121,6 @@
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     imagemSelecionada.src = e.target.result;
-                    console.log('objeto', e.target.result);
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -92,8 +128,26 @@
             }
         });
 
-        changeBlogLogoForm.addEventListener('submit', function(event) {
-            console.log('entrei submit');
-        })
+        inputFileFavicon.addEventListener('change', (event) => {
+            const selectedFavicon = document.getElementById('selectedFavicon');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    selectedFavicon.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+
+                selectedFavicon.src = '';
+            }
+        });
+
+        changeBlogLogoForm.addEventListener('submit', (event) => {});
+
+        changeBlogFavicon.addEventListener('submit', (event) => {
+
+        });
     })
 </script>
