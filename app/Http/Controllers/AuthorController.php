@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GeneralSettings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,5 +70,56 @@ class AuthorController extends Controller
         ];
 
         return redirect()->route('author.profile')->with('status', $output);
+    }
+
+    public function changeBlogLogo(Request $request)
+    {
+        $general_settings = GeneralSettings::find(1);
+        $logo_path = 'backend/dist/img/logo-favicon';
+        $old_logo = $general_settings->blog_logo;
+        $file = $request->file('blog_logo');
+
+        if ($request->hasFile('blog_logo')) {
+            // Validação: Verifique se o arquivo é um SVG
+            if ($file->getClientOriginalExtension() === 'svg') {
+                // Gere um nome único para o arquivo
+                $filename = time() . '_' . rand(1, 100000) . '_blog_logo.svg';
+            } else {
+                $filename = time() . '_' . rand(1, 100000) . 'blog_logo.png';
+            }
+
+            if ($old_logo != null && File::exists(public_path($logo_path . $old_logo))) {
+                File::delete(public_path($logo_path . $old_logo));
+            }
+
+            $upload = $file->move(public_path($logo_path), $filename);
+
+            if ($upload) {
+                $general_settings->update([
+                    'blog_logo' => $filename
+                ]);
+
+                $output = [
+                    'success' => 1,
+                    'msg' => __('Logo atualizada com sucesso')
+                ];
+
+                return redirect()->route('author.settings')->with('status', $output);
+            } else {
+                $output = [
+                    'success' => 0,
+                    'msg' => __('Algo deu errado')
+                ];
+
+                return redirect()->route('author.settings')->with('status', $output);
+            }
+        } else {
+            $output = [
+                'success' => 0,
+                'msg' => 'O arquivo deve ser um SVG.'
+            ];
+
+            return redirect()->route('author.settings')->with('status', $output);
+        }
     }
 }

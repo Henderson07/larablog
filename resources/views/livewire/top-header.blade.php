@@ -7,7 +7,7 @@
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href=".">
-                    <img src="./backend/static/logo.svg" width="110" height="32" alt="Tabler"
+                    <img src="{{ \App\Models\GeneralSettings::find(1)->blog_logo }}" width="110" height="32" alt="Tabler"
                         class="navbar-brand-image">
                 </a>
             </h1>
@@ -228,7 +228,7 @@
                             <div class="dropdown-menu">
                                 <div class="dropdown-menu-columns">
                                     <div class="dropdown-menu-column">
-                                        <a class="dropdown-item" href="./layout-horizontal.html">
+                                        <a class="dropdown-item" href="{{ route("author.settings") }}">
                                             Configuração geral
                                         </a>
                                     </div>
