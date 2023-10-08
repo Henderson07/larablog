@@ -3,3 +3,10 @@
 @section('content')
     @livewire('authors')
 @endsection
+@push('scripts')
+    <script>
+        $(window).on('hidden.bs.modal', funtion() {
+            Livewire.emit('resetForm');
+        })
+    </script>
+@endpush

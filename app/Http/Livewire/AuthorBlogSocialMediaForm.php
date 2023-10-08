@@ -14,12 +14,11 @@ class AuthorBlogSocialMediaForm extends Component
 
     public function mount()
     {
-        $blog_social_media = BlogSocialMedia::find(1);
-
-        $this->facebook_url = $blog_social_media->bsm_facebook;
-        $this->instagram_url = $blog_social_media->bsm_instagram;
-        $this->youtube_url = $blog_social_media->bsm_youtube;
-        $this->linkedin_url = $blog_social_media->bsm_linkedin;
+        $this->blog_social_media = BlogSocialMedia::find(1);
+        $this->facebook_url = $this->blog_social_media->bsm_facebook;
+        $this->instagram_url = $this->blog_social_media->bsm_instagram;
+        $this->youtube_url = $this->blog_social_media->bsm_youtube;
+        $this->linkedin_url = $this->blog_social_media->bsm_linkedin;
     }
 
     public function render()
@@ -37,7 +36,6 @@ class AuthorBlogSocialMediaForm extends Component
         ]);
 
         try {
-            $this->blog_social_media = BlogSocialMedia::find(1);
             
             $update = $this->blog_social_media->update([
                 'bsm_facebook' => $this->facebook_url,
