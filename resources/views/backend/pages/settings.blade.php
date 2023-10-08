@@ -49,7 +49,7 @@
                             @livewire('author-general-change-logo')
                         </div>
                         <div class="col-md-6">
-                            <h3>Alterar icone blog</h3>
+                            <h3>Alterar ícone blog</h3>
                             <div class="mb-2" style="max-width: 100px">
                                 <img id="selectedFavicon" src="{{ \App\Models\GeneralSettings::find(1)->blog_favicon }}"
                                     alt="" class="img-thumbnail">
@@ -60,7 +60,7 @@
                                 <div class="mb-2">
                                     <input type="file" name="blog_favicon" id="blog_favicon" class="form-control"">
                                 </div>
-                                <button class="btn btn-primary" type="submit">Altera icone</button>
+                                <button class="btn btn-primary" type="submit">Altera ícone</button>
                             </form>
                         </div>
                     </div>
@@ -68,38 +68,7 @@
                 <div class="tab-pane fade" id="tabs-activity-8" role="tabpanel">
                     <h4>Adicionar mídias sociais</h4>
                     <div>
-                        <form action="" method="post">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Facebook</label>
-                                        <input type="text" class="form-control" name="facebook"
-                                            placeholder="Insira a url do facebook">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Instagram</label>
-                                        <input type="text" class="form-control" name="instagram"
-                                            placeholder="Insira a url do instagram">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">youtube</label>
-                                        <input type="text" class="form-control" name="youtube"
-                                            placeholder="Insira a url do youtube">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">linkeIn</label>
-                                        <input type="text" class="form-control" name="linkeIn"
-                                            placeholder="Insira a url do linkeIn">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        @livewire('author-blog-social-media-form')
                     </div>
                 </div>
             </div>
