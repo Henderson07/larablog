@@ -7,8 +7,8 @@
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href=".">
-                    <img src="{{ \App\Models\GeneralSettings::find(1)->blog_logo }}" width="110" height="32" alt="Tabler"
-                        class="navbar-brand-image">
+                    <img src="{{ \App\Models\GeneralSettings::find(1)->blog_logo }}" width="110" height="32"
+                        alt="Tabler" class="navbar-brand-image">
                 </a>
             </h1>
             <div class="navbar-nav flex-row order-md-last">
@@ -197,13 +197,15 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./">
-                                <span class="nav-link-title">
-                                    Autores
-                                </span>
-                            </a>
-                        </li>
+                        @if (auth()->user()->type == 1)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('author.authors') }}">
+                                    <span class="nav-link-title">
+                                        Autores
+                                    </span>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown"
                                 data-bs-auto-close="outside" role="button" aria-expanded="false">
@@ -235,7 +237,7 @@
                             <div class="dropdown-menu">
                                 <div class="dropdown-menu-columns">
                                     <div class="dropdown-menu-column">
-                                        <a class="dropdown-item" href="{{ route("author.settings") }}">
+                                        <a class="dropdown-item" href="{{ route('author.settings') }}">
                                             Configuração geral
                                         </a>
                                     </div>
