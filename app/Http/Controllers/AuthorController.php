@@ -29,7 +29,7 @@ class AuthorController extends Controller
     public function changeProfilePicture(Request $request)
     {
         $user = User::find(auth('web')->id());
-        $path = 'backend/dist/img/authors';
+        $path = '/backend/dist/img/authors';
 
         if ($request->hasFile('business_logo')) {
             $file = $request->file('business_logo');
@@ -45,7 +45,7 @@ class AuthorController extends Controller
 
             if ($upload) {
                 $user->update([
-                    'picture' => $new_picture_name
+                    'picture' => $path . '/' . $new_picture_name
                 ]);
 
                 $output = [

@@ -8,7 +8,7 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 <span class="avatar avatar-md rounded-circle"
-                    style="background-image: url('{{ asset('backend/dist/img/authors/' . $author->picture) }}')">
+                    style="background-image: url('{{ asset($author->picture) }}')">
                 </span>
             </div>
             <div class="col-md-6">

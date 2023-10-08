@@ -55,9 +55,9 @@ class User extends Authenticatable
     public function getPictureAttibute($value)
     {
         if ($value) {
-            return asset('backend/dist/img/authors/' . $value);
+            return asset('/backend/dist/img/authors/' . $value);
         } else {
-            return asset('backend/dist/img/authors/default.jpg');
+            return asset('/backend/dist/img/authors/default.jpg');
         }
     }
 }
