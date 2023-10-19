@@ -1,6 +1,6 @@
 <div>
     @if (Session::get('success'))
-        <div class="alert alter-success">
+        <div class="alert alert-success">
             {!! Session::get('success') !!}
         </div>
     @endif
@@ -56,7 +56,8 @@
                     <div class="d-flex">
                         <a href="#" wire:click.prevent='editAuthor({{ $author }})'
                             class="card-btn">Editar</a>
-                        <a href="#" class="card-btn">Excluir autor</a>
+                        <a href="#" wire:click.prevent='deleteAuthor({{ $author }})'
+                            class="card-btn">Excluir autor</a>
                     </div>
                 </div>
             </div>

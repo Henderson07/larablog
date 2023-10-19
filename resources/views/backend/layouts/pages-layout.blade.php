@@ -23,11 +23,13 @@
     <link href="./backend/dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/dist/libs/ijaboCropTool/ijaboCropTool.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <link href="{{ asset('') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.min.css">
+    <!-- app css -->
 
     @stack('stylesheet')
     @livewireStyles
     <link href="./backend/dist/css/demo.min.css?1684106062" rel="stylesheet" />
+    <link href="/css/app.cs" rel="stylesheet" />
 </head>
 
 <body>
@@ -47,6 +49,7 @@
         </div>
     </div>
     <!-- Libs JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.min.js"></script>
     <script src="./backend/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062" defer></script>
     <script src="./backend/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062" defer></script>
     <script src="./backend/dist/libs/jsvectormap/dist/maps/world.js?1684106062" defer></script>

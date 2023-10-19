@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
@@ -18,7 +19,8 @@ class Authors extends Component
     public $selected_author_id;
     public $blocked = 0;
     protected $listeners = [
-        'resetForms'
+        'resetForms',
+        'deleteAuthorAction'
     ];
     public function mount()
     {
@@ -56,6 +58,7 @@ class Authors extends Component
         $author->password = Hash::make($default_password);
         $author->type = $this->author_type;
         $author->direct_publish = $this->direct_publisher;
+        $author->picture = '/backend/dist/img/authors/default.jpg';
         $saved = $author->save();
 
         $data = array([
@@ -125,6 +128,27 @@ class Authors extends Component
         } else {
             session()->flash('error', 'Algo deu errado');
         }
+    }
+    public function deleteAuthor($author)
+    {
+        $this->dispatchBrowserEvent('deleteAuthor', [
+            'title' => 'Você tem certeza?',
+            'html' => 'Você deseja excluir este autor: <br><b>' . $author['name'] . '</b>',
+            'id' => $author['id'],
+        ]);
+    }
+    public function deleteAuthorAction($id)
+    {
+        $author = User::find($id);
+        $path = 'backend/dist/img/author';
+        $author_picture = $author->picture;
+
+        if ($author_picture != null || File::exists(public_path($author_picture))) {
+            File::Delete(public_path($author_picture));
+        }
+        $author->delete();
+
+        session()->flash('success', 'Autor excluído com sucesso!');
     }
     public function showToast($message, $type)
     {
