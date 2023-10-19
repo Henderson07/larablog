@@ -15,6 +15,8 @@ class Authors extends Component
     public $name, $email, $username, $author_type, $direct_publisher;
     public $search;
     public $perPage = 4;
+    public $selected_author_id;
+    public $blocked = 0;
     protected $listeners = [
         'resetForms'
     ];
@@ -22,7 +24,8 @@ class Authors extends Component
     {
         $this->resetPage();
     }
-    public function updatingSearch(){
+    public function updatingSearch()
+    {
         $this->resetPage();
     }
     public function resetForms()
@@ -82,6 +85,53 @@ class Authors extends Component
         // } else {
         //     session()->flash('error', 'Você está offline, verifique sua conexão e tente novamente mais tarde.');
         // }
+    }
+    public function editAuthor($author)
+    {
+        $this->selected_author_id = $author['id'];
+        $this->name = $author['name'];
+        $this->email = $author['email'];
+        $this->username = $author['username'];
+        $this->author_type = $author['type'];
+        $this->direct_publisher = $author['direct_publish'];
+        $this->blocked = $author['blocked'];
+        $this->dispatchBrowserEvent('showEditAuthorModal');
+    }
+    public function updateAuthor()
+    {
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->selected_author_id,
+            'username' => 'required|min:6|max:20|unique:users,username,' . $this->selected_author_id,
+        ]);
+
+        if ($this->selected_author_id) {
+            $query = User::find($this->selected_author_id);
+            $query->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'username' => $this->username,
+                'author_type' => $this->author_type,
+                'direct_publisher' => $this->direct_publisher,
+                'blocked' => $this->blocked,
+            ]);
+
+            if ($query) {
+                $this->dispatchBrowserEvent('closeUpdateAuthorModal');
+                session()->flash('success', 'Autor atualizado com sucesso!');
+            } else {
+                session()->flash('error', 'Algo deu errado');
+            }
+        } else {
+            session()->flash('error', 'Algo deu errado');
+        }
+    }
+    public function showToast($message, $type)
+    {
+        return $this->dispatchBrowserEvent('showToast', [
+            'type' => $type,
+            'message' => $message
+        ]);
     }
     public function render()
     {
