@@ -5,8 +5,13 @@
 @endsection
 @push('scripts')
     <script>
-        $(window).on('hidden.bs.modal', funtion() {
-            Livewire.emit('resetForm');
+        $(window).on('hidden.bs.modal', function() {
+            livewire.emit('resetForms');
+            console.log('entrei fechar modal')
+        });
+
+        window.addEventListener('hide_add_author_modal', function(event) {
+            $('#add_author_modal').modal('hide');
         })
     </script>
 @endpush
