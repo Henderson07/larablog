@@ -191,9 +191,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./">
+                            <a class="nav-link" href="{{ route('author.categories') }}">
                                 <span class="nav-link-title">
-                                    Menus & Categorias
+                                    Categorias
                                 </span>
                             </a>
                         </li>
