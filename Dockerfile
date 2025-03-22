@@ -17,19 +17,32 @@ RUN apt-get update \
     curl
 
 # Add the PHP 8.1 repository and install PHP and dependencies
-RUN add-apt-repository -y ppa:ondrej/php && apt-get -y update
-RUN apt install -y php8.0
-RUN apt install -y php8.0-cli
-RUN apt install -y php8.0-dev
-RUN apt install -y php8.0-xml
-RUN apt install -y php8.0-curl
-RUN apt install -y php8.0-bcmath
-RUN apt install -y php8.0-gd
-RUN apt install -y php8.0-mbstring
-RUN apt install -y php8.0-mysql
-RUN apt install -y php8.0-xsl
-RUN apt install -y php8.0-zip
-RUn apt install -y php8.0-pdo-mysql
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:ondrej/php \
+    && apt-get update \
+    && apt-get install -y \
+    php8.0 \
+    php8.0-cli \
+    php8.0-dev \
+    php8.0-xml \
+    php8.0-curl \
+    php8.0-bcmath \
+    php8.0-gd \
+    php8.0-mbstring \
+    php8.0-mysql \
+    php8.0-xsl \
+    php8.0-zip \
+    php8.0-pdo-mysql \
+    apache2 \
+    apache2-utils \
+    libapache2-mod-php8.0 \
+    sudo \
+    vim \
+    curl \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php8.0 -- --install-dir=/usr/local/bin --filename=composer
